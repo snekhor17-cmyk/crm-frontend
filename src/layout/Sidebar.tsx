@@ -3,18 +3,18 @@ import { BarChart3, LayoutDashboard, Settings, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard },
-  { label: "Candidates", icon: Users },
-  { label: "Pipeline", icon: BarChart3 },
-  { label: "Settings", icon: Settings },
+  { label: "Дашборд", icon: LayoutDashboard },
+  { label: "Кандидаты", icon: Users },
+  { label: "Воронка", icon: BarChart3 },
+  { label: "Настройки", icon: Settings },
 ]
 
 export function Sidebar() {
   return (
     <aside className="w-full border-b bg-sidebar md:h-screen md:w-64 md:border-r md:border-b-0">
       <div className="border-b p-4 md:p-6">
-        <p className="text-sm text-muted-foreground">CRM Workspace</p>
-        <h1 className="text-xl font-semibold">TalentFlow</h1>
+        <p className="text-sm text-muted-foreground">CRM-платформа</p>
+        <h1 className="text-xl font-semibold">платформа.</h1>
       </div>
 
       <nav className="flex gap-2 overflow-x-auto p-4 md:flex-col md:overflow-visible md:p-3">
