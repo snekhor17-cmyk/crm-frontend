@@ -44,7 +44,7 @@ export function CandidatesTable({ candidates, onRowClick }: CandidatesTableProps
               <TableCell>{candidate.hrName}</TableCell>
               <TableCell>{candidate.vacancyTitle}</TableCell>
               <TableCell>{candidate.city}</TableCell>
-              <TableCell>{candidate.nextContactAt}</TableCell>
+              <TableCell>{new Date(candidate.nextContactAt).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</TableCell>
             </TableRow>
           ))}
         </TableBody>
