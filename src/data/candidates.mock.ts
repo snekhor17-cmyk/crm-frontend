@@ -1,14 +1,21 @@
-import type { Candidate, CandidateStatus } from "@/types/candidate"
+import type { Candidate, CandidateStatus, CandidateStatusOption } from "@/types/candidate"
 
-export const CANDIDATE_STATUSES: CandidateStatus[] = [
-  "Новый",
-  "Скрининг",
-  "Назначено собеседование",
-  "Собеседование завершено",
-  "Оффер",
-  "На паузе",
-  "Отказ",
+export const CANDIDATE_STATUSES: CandidateStatusOption[] = [
+  { value: "Новый", label: "Новый", color: "#9CA3AF" },
+  { value: "Назначено собеседование", label: "Назначено собеседование", color: "#F59E0B" },
+  { value: "Собеседование подтверждено", label: "Собеседование подтверждено", color: "#14B8A6" },
+  { value: "Собеседование с HR состоялось", label: "Собеседование с HR состоялось", color: "#EAB308" },
+  { value: "Собеседование с руководителем состоялось", label: "Собеседование с руководителем состоялось", color: "#EAB308" },
+  { value: "Готов на обучение", label: "Готов на обучение", color: "#A855F7" },
+  { value: "Подтвердил выход", label: "Подтвердил выход", color: "#A855F7" },
+  { value: "Вышел на обучение", label: "Вышел на обучение", color: "#3B82F6" },
+  { value: "Успешно завершил обучение", label: "Успешно завершил обучение", color: "#3B82F6" },
+  { value: "Вышел в отдел", label: "Вышел в отдел", color: "#22C55E" },
+  { value: "Прошел испытательный срок", label: "Прошел испытательный срок", color: "#22C55E" },
+  { value: "Срыв", label: "Срыв", color: "#EF4444" },
 ]
+
+export const CANDIDATE_STATUS_VALUES: CandidateStatus[] = CANDIDATE_STATUSES.map(({ value }) => value)
 
 export const HR_LIST = ["Мария Смирнова", "Алексей Волков", "Ирина Орлова", "Никита Романов"]
 
@@ -56,7 +63,7 @@ export const candidatesMock: Candidate[] = Array.from({ length: 36 }, (_, index)
     createdAt: `0${(index % 9) + 1}.02.2026`,
     fullName: names[index % names.length],
     phone: `+7 (9${(index % 9) + 10}) ${100 + index}-${10 + (index % 80)}-${20 + (index % 70)}`,
-    status: CANDIDATE_STATUSES[index % CANDIDATE_STATUSES.length],
+    status: CANDIDATE_STATUS_VALUES[index % CANDIDATE_STATUS_VALUES.length],
     hrName: HR_LIST[index % HR_LIST.length],
     vacancyTitle: VACANCY_LIST[index % VACANCY_LIST.length],
     city: CITY_LIST[index % CITY_LIST.length],
@@ -81,7 +88,7 @@ export const candidatesMock: Candidate[] = Array.from({ length: 36 }, (_, index)
         id: `${id}-system-status`,
         type: "system",
         author: "Система",
-        text: `Статус изменён на «${CANDIDATE_STATUSES[index % CANDIDATE_STATUSES.length]}».`,
+        text: `Статус изменён на «${CANDIDATE_STATUS_VALUES[index % CANDIDATE_STATUS_VALUES.length]}».`,
         createdAt: `2026-02-${String(3 + (index % 10)).padStart(2, "0")} 11:30`,
       },
     ],
