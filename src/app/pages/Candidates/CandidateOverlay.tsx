@@ -12,13 +12,14 @@ import {
 } from "@/data/candidates.mock"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
-import type { Candidate } from "@/types/candidate"
+import type { Candidate, CandidateStatus } from "@/types/candidate"
 
 interface CandidateOverlayProps {
   candidate: Candidate | null
   onOpenChange: (open: boolean) => void
   onFieldChange: (candidateId: number, field: keyof Candidate, value: string) => void
   onInterviewAction: (candidateId: number, action: "cancel" | "confirm" | "reschedule" | "complete") => void
+  onStatusChange: (candidateId: number, status: CandidateStatus) => void
   onAddComment: (candidateId: number, text: string) => void
 }
 
@@ -27,6 +28,7 @@ export function CandidateOverlay({
   onOpenChange,
   onFieldChange,
   onInterviewAction,
+  onStatusChange,
   onAddComment,
 }: CandidateOverlayProps) {
   return (
@@ -46,6 +48,7 @@ export function CandidateOverlay({
                 <CandidateHeader
                   candidate={candidate}
                   onInterviewAction={(action) => onInterviewAction(candidate.id, action)}
+                  onStatusChange={(status) => onStatusChange(candidate.id, status)}
                 />
                 <CandidateDetails
                   candidate={candidate}

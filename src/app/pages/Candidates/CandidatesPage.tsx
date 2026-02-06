@@ -3,7 +3,12 @@ import { useMemo, useState } from "react"
 import { CandidateOverlay } from "@/app/pages/Candidates/CandidateOverlay"
 import { CandidatesTable } from "@/app/pages/Candidates/CandidatesTable"
 import { CandidatesToolbar } from "@/app/pages/Candidates/CandidatesToolbar"
-import { CANDIDATE_STATUSES, CITY_LIST, HR_LIST, candidatesMock } from "@/data/candidates.mock"
+import {
+  CANDIDATE_STATUS_VALUES,
+  CITY_LIST,
+  HR_LIST,
+  candidatesMock,
+} from "@/data/candidates.mock"
 import type { Candidate, CandidateStatus, InterviewState } from "@/types/candidate"
 
 const includesText = (value: string, query: string) =>
@@ -17,12 +22,12 @@ const getNowLabel = () =>
 
 const interviewActions: Record<"cancel" | "confirm" | "reschedule" | "complete", { status: CandidateStatus; interviewState: InterviewState; message: string }> = {
   cancel: {
-    status: "На паузе",
+    status: "Срыв",
     interviewState: "cancelled",
     message: "Собеседование отменено.",
   },
   confirm: {
-    status: "Назначено собеседование",
+    status: "Собеседование подтверждено",
     interviewState: "confirmed",
     message: "Собеседование подтверждено.",
   },
@@ -32,7 +37,7 @@ const interviewActions: Record<"cancel" | "confirm" | "reschedule" | "complete",
     message: "Собеседование перенесено.",
   },
   complete: {
-    status: "Собеседование завершено",
+    status: "Собеседование с HR состоялось",
     interviewState: "completed",
     message: "Собеседование отмечено как состоявшееся.",
   },
@@ -131,6 +136,10 @@ export function CandidatesPage() {
     }))
   }
 
+  const handleStatusChange = (candidateId: number, status: CandidateStatus) => {
+    updateCandidate(candidateId, (candidate) => addSystemComment({ ...candidate, status }, `Статус изменён на «${status}».`))
+  }
+
   const handleToggleFilter = (type: "status" | "hr" | "city", value: string) => {
     if (type === "status") {
       setSelectedStatuses((prev) => toggleValue(prev, value))
@@ -158,7 +167,7 @@ export function CandidatesPage() {
         query={query}
         onQueryChange={setQuery}
         shownCount={filteredCandidates.length}
-        statuses={CANDIDATE_STATUSES}
+        statuses={CANDIDATE_STATUS_VALUES}
         hrList={HR_LIST}
         cities={CITY_LIST}
         selectedStatuses={selectedStatuses}
@@ -178,6 +187,7 @@ export function CandidatesPage() {
         onOpenChange={(open) => setActiveCandidateId(open ? activeCandidateId : null)}
         onFieldChange={handleFieldChange}
         onInterviewAction={handleInterviewAction}
+        onStatusChange={handleStatusChange}
         onAddComment={handleAddComment}
       />
     </section>
