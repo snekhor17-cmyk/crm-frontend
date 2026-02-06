@@ -1,18 +1,28 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { AppLayout } from "@/layout/AppLayout"
+
+const overviewCards = [
+  { title: "Open positions", value: "12", description: "3 added this week" },
+  { title: "Active candidates", value: "87", description: "14 in interview stage" },
+  { title: "Offers sent", value: "6", description: "2 pending response" },
+]
 
 export default function App() {
   return (
-    <div className="p-8">
-      <Card className="max-w-md">
-        <CardHeader>
-          <CardTitle>CRM стартанул 🚀</CardTitle>
-        </CardHeader>
-        <CardContent className="flex gap-3">
-          <Button>Добавить кандидата</Button>
-          <Button variant="outline">Настройки</Button>
-        </CardContent>
-      </Card>
-    </div>
+    <AppLayout>
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {overviewCards.map((card) => (
+          <Card key={card.title}>
+            <CardHeader>
+              <CardTitle>{card.title}</CardTitle>
+              <CardDescription>{card.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-semibold tracking-tight">{card.value}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+    </AppLayout>
   )
 }
