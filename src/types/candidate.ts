@@ -1,10 +1,29 @@
 export type CandidateStatus =
   | "Новый"
   | "Скрининг"
-  | "Собеседование"
+  | "Назначено собеседование"
+  | "Собеседование завершено"
   | "Оффер"
   | "На паузе"
   | "Отказ"
+
+export type CandidateCommentType = "system" | "user"
+
+export interface CandidateComment {
+  id: string
+  type: CandidateCommentType
+  author: string
+  text: string
+  createdAt: string
+}
+
+export type InterviewState = "scheduled" | "confirmed" | "rescheduled" | "cancelled" | "completed"
+
+export interface CandidateInterview {
+  plannedAt: string
+  isConfirmed: boolean
+  state: InterviewState
+}
 
 export interface Candidate {
   id: number
@@ -15,5 +34,10 @@ export interface Candidate {
   hrName: string
   vacancyTitle: string
   city: string
+  recruitmentChannel: string
+  attractionType: string
   nextContactAt: string
+  notes: string
+  interview: CandidateInterview
+  comments: CandidateComment[]
 }
