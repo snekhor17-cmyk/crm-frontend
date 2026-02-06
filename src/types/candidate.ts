@@ -4,13 +4,7 @@ export type CandidateStatus =
   | "Собеседование"
   | "Оффер"
   | "На паузе"
-
-export interface CandidateComment {
-  id: number
-  author: string
-  message: string
-  createdAt: string
-}
+  | "Отказ"
 
 export interface Candidate {
   id: number
@@ -18,9 +12,8 @@ export interface Candidate {
   fullName: string
   phone: string
   status: CandidateStatus
-  hrManager: string
-  vacancy: string
+  hrName: string
+  vacancyTitle: string
   city: string
-  nextContactDate: string
-  comments: CandidateComment[]
+  nextContactAt: string
 }
