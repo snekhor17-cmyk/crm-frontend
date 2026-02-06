@@ -10,15 +10,10 @@ import type { Candidate } from "@/types/candidate"
 
 interface CandidatesTableProps {
   candidates: Candidate[]
-  selectedCandidateId: number | null
-  onSelectCandidate: (candidate: Candidate) => void
+  onRowClick: (candidate: Candidate) => void
 }
 
-export function CandidatesTable({
-  candidates,
-  selectedCandidateId,
-  onSelectCandidate,
-}: CandidatesTableProps) {
+export function CandidatesTable({ candidates, onRowClick }: CandidatesTableProps) {
   return (
     <div className="overflow-hidden rounded-lg border bg-background">
       <Table>
@@ -36,23 +31,20 @@ export function CandidatesTable({
         </TableHeader>
         <TableBody>
           {candidates.map((candidate) => (
-            <TableRow
-              key={candidate.id}
-              data-state={candidate.id === selectedCandidateId ? "selected" : undefined}
-              className="cursor-pointer"
-              onClick={() => onSelectCandidate(candidate)}
-            >
+            <TableRow key={candidate.id} className="cursor-pointer" onClick={() => onRowClick(candidate)}>
               <TableCell>{candidate.id}</TableCell>
               <TableCell>{candidate.createdAt}</TableCell>
               <TableCell>
                 <div className="font-medium">{candidate.fullName}</div>
                 <div className="text-xs text-muted-foreground">{candidate.phone}</div>
               </TableCell>
-              <TableCell>{candidate.status}</TableCell>
-              <TableCell>{candidate.hrManager}</TableCell>
-              <TableCell>{candidate.vacancy}</TableCell>
+              <TableCell>
+                <span className="rounded-full border px-2 py-0.5 text-xs">{candidate.status}</span>
+              </TableCell>
+              <TableCell>{candidate.hrName}</TableCell>
+              <TableCell>{candidate.vacancyTitle}</TableCell>
               <TableCell>{candidate.city}</TableCell>
-              <TableCell>{candidate.nextContactDate}</TableCell>
+              <TableCell>{candidate.nextContactAt}</TableCell>
             </TableRow>
           ))}
         </TableBody>
